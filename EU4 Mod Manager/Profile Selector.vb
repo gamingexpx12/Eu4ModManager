@@ -72,8 +72,9 @@
             Profiles(i) = foundFile
             i = i + 1 'increment index
             Dim filetxt As String = My.Computer.FileSystem.ReadAllText(foundFile) 'Read the file
+            foundFile = foundFile.Replace(Dir, "")
             If My.Settings.DebugMode Then
-                ProfileName = ParadoxRW.GetStringValue(filetxt, "name") & "   -   (" & foundFile & ")l"
+                ProfileName = ParadoxRW.GetStringValue(filetxt, "name") & "   -   (" & foundFile & ")"
             Else
                 ProfileName = ParadoxRW.GetStringValue(filetxt, "name")
             End If
