@@ -38,8 +38,10 @@ Partial Class Form1
         Me.ProfileList = New System.Windows.Forms.ListBox()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.ProfileText = New System.Windows.Forms.RichTextBox()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.ModList = New System.Windows.Forms.ListBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.ProfileWatcher = New System.IO.FileSystemWatcher()
+        Me.ModsWatcher = New System.IO.FileSystemWatcher()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,6 +52,8 @@ Partial Class Form1
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
         Me.SplitContainer2.SuspendLayout()
+        CType(Me.ProfileWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ModsWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -192,7 +196,7 @@ Partial Class Form1
         '
         'SplitContainer2.Panel2
         '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.ListBox1)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.ModList)
         Me.SplitContainer2.Size = New System.Drawing.Size(542, 463)
         Me.SplitContainer2.SplitterDistance = 229
         Me.SplitContainer2.TabIndex = 4
@@ -206,14 +210,14 @@ Partial Class Form1
         Me.ProfileText.TabIndex = 0
         Me.ProfileText.Text = "adasdasd" & Global.Microsoft.VisualBasic.ChrW(10) & "adas" & Global.Microsoft.VisualBasic.ChrW(10) & "aad"
         '
-        'ListBox1
+        'ModList
         '
-        Me.ListBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(0, 0)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(542, 230)
-        Me.ListBox1.TabIndex = 0
+        Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ModList.FormattingEnabled = True
+        Me.ModList.Location = New System.Drawing.Point(0, 0)
+        Me.ModList.Name = "ModList"
+        Me.ModList.Size = New System.Drawing.Size(542, 230)
+        Me.ModList.TabIndex = 0
         '
         'Label2
         '
@@ -224,6 +228,19 @@ Partial Class Form1
         Me.Label2.Size = New System.Drawing.Size(104, 24)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Description"
+        '
+        'ProfileWatcher
+        '
+        Me.ProfileWatcher.EnableRaisingEvents = True
+        Me.ProfileWatcher.NotifyFilter = CType((((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.DirectoryName) _
+            Or System.IO.NotifyFilters.Size) _
+            Or System.IO.NotifyFilters.LastWrite), System.IO.NotifyFilters)
+        Me.ProfileWatcher.SynchronizingObject = Me
+        '
+        'ModsWatcher
+        '
+        Me.ModsWatcher.EnableRaisingEvents = True
+        Me.ModsWatcher.SynchronizingObject = Me
         '
         'Form1
         '
@@ -248,6 +265,8 @@ Partial Class Form1
         Me.SplitContainer2.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer2.ResumeLayout(False)
+        CType(Me.ProfileWatcher, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ModsWatcher, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -268,6 +287,8 @@ Partial Class Form1
     Friend WithEvents NewProfile As System.Windows.Forms.Button
     Friend WithEvents EditProfie As System.Windows.Forms.Button
     Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
-    Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
+    Friend WithEvents ModList As System.Windows.Forms.ListBox
+    Friend WithEvents ProfileWatcher As System.IO.FileSystemWatcher
+    Friend WithEvents ModsWatcher As System.IO.FileSystemWatcher
 
 End Class

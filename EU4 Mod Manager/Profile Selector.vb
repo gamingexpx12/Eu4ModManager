@@ -1,6 +1,7 @@
 ﻿Public Class Form1
     Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt")
     Dim Profiles() As String
+    Dim oGlobals As New Globals()
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -9,14 +10,17 @@
             MsgBox("Please select game executable and mod folder.", MsgBoxStyle.OkOnly, "First time setup")
             Settingsvb.ShowDialog()
         End If
-
+        oGlobals.ModsFolder = My.Settings.UserFilesPath & "\mod"
+        oGlobals.ProfileFolder = My.Settings.UserFilesPath & "\mod\EU4ModManager"
+        My.Application.Log.WriteEntry(ProfileWatcher.Path)
         LoadProfiles() 'Load the profiles list
 
-        Dim Descs() As String = ParadoxRW.GetArrayValue(Settingstxt, "last_mods")
-
-        ProfileText.Clear()
-        For i = 0 To Descs.GetUpperBound(0)
-            ProfileText.AppendText(Descs(i).Replace(Chr(34), ""))
+        Dim Mods() As String = ParadoxRW.GetArrayValue(Settingstxt, "last_mods")
+        Dim CurrentMod As String
+        For i = 0 To Mods.GetUpperBound(0)
+            CurrentMod = Mods(i).Replace(Chr(34), "")
+            CurrentMod = CurrentMod.Replace(Chr(9), "")
+            ModList.Items.Add(CurrentMod)
         Next
 
 
@@ -60,8 +64,8 @@
         Dim ProfileName As String
         ReDim Profiles(0 To 1)
         Dim i As Integer = 0
-        Dim Dir As String = My.Settings.UserFilesPath & "\mod\EU4ModManager"
-
+        Dim Dir As String = oGlobals.ProfileFolder
+        ProfileList.Items.Clear()
         Dim Filecount As String = My.Computer.FileSystem.GetFiles(Dir, FileIO.SearchOption.SearchTopLevelOnly, "*.profile").Count
         My.Application.Log.WriteEntry("Found " & Filecount & " Files.")
 
@@ -102,4 +106,54 @@
     Private Sub EditProfie_Click(sender As Object, e As EventArgs) Handles EditProfie.Click
         ProfileCreate("Edit")
     End Sub
+
+    Private Sub LoadMods()
+
+    End Sub
+
+    Private Sub ProfileWatcher_Renamed(sender As Object, e As IO.RenamedEventArgs) Handles ProfileWatcher.Renamed
+        LoadProfiles()
+        My.Application.Log.WriteEntry("File Renamed")
+    End Sub
+
+    
+End Class
+
+Public Class Globals
+    Private ModsPath As String
+    Private ProfilesPath As String
+
+    Public Property ProfileFolder As String
+        Get
+            Return ProfilesPath
+        End Get
+        Set(value As String)
+
+            Try
+                FileIO.FileSystem.DirectoryExists(ProfilesPath)
+            Catch ex As Exception
+                My.Application.Log.WriteEntry(ex.ToString())
+            End Try
+            ProfilesPath = value
+            Form1.ProfileWatcher.Path = value
+        End Set
+
+    End Property
+
+    Public Property ModsFolder As String
+        Get
+            Return ModsPath
+        End Get
+        Set(value As String)
+
+            Try
+                FileIO.FileSystem.DirectoryExists(ModsPath)
+            Catch ex As Exception
+                My.Application.Log.WriteEntry(ex.ToString())
+            End Try
+            ModsPath = value
+            Form1.ModsWatcher.Path = value
+        End Set
+
+    End Property
 End Class
