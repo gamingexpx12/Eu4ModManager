@@ -10,13 +10,16 @@
             MsgBox("Please select game executable and mod folder.", MsgBoxStyle.OkOnly, "First time setup")
             Settingsvb.ShowDialog()
         End If
+
         oGlobals.ModsFolder = My.Settings.UserFilesPath & "\mod"
         oGlobals.ProfileFolder = My.Settings.UserFilesPath & "\mod\EU4ModManager"
+
         My.Application.Log.WriteEntry(ProfileWatcher.Path)
         LoadProfiles() 'Load the profiles list
 
         Dim Mods() As String = ParadoxRW.GetArrayValue(Settingstxt, "last_mods")
         Dim CurrentMod As String
+
         For i = 0 To Mods.GetUpperBound(0)
             CurrentMod = Mods(i).Replace(Chr(34), "")
             CurrentMod = CurrentMod.Replace(Chr(9), "")
@@ -60,7 +63,7 @@
         ProfileCreate("Create")
     End Sub
 
-    Private Sub LoadProfiles()
+    Public Sub LoadProfiles()
         Dim ProfileName As String
         ReDim Profiles(0 To 1)
         Dim i As Integer = 0
@@ -123,6 +126,10 @@ Public Class Globals
     Private ModsPath As String
     Private ProfilesPath As String
 
+    Private ProfilesArray() As String
+    Private ModsArray() As String
+
+
     Public Property ProfileFolder As String
         Get
             Return ProfilesPath
@@ -156,4 +163,5 @@ Public Class Globals
         End Set
 
     End Property
+
 End Class
