@@ -1,7 +1,7 @@
 ﻿Public Class Form1
     Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt")
     Dim Profiles() As String 'Stores all the profiles in short form
-    Dim oGlobals As New Globals()
+    Public oGlobals As New Globals()
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
