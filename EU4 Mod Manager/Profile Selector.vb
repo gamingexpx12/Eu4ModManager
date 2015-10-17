@@ -65,10 +65,10 @@
 
     Public Sub LoadProfiles()
         Dim ProfileName As String
-        ReDim Profiles(0 To 1)
         Dim i As Integer = 0
         Dim Dir As String = oGlobals.ProfileFolder
         ProfileList.Items.Clear()
+        Erase Profiles
         Dim Filecount As String = My.Computer.FileSystem.GetFiles(Dir, FileIO.SearchOption.SearchTopLevelOnly, "*.profile").Count
         My.Application.Log.WriteEntry("Found " & Filecount & " Files.")
 
@@ -88,7 +88,7 @@
                 ProfileName = ParadoxRW.GetStringValue(filetxt, "name")
             End If
 
-
+            Array.Resize(Profiles, i + 1) 'Update the arrays size
             Profiles(i) = foundFile ' add profile to array
             i = i + 1 'increment index
 
