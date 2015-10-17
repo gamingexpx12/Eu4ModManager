@@ -32,6 +32,7 @@ Partial Class Settingsvb
         Me.FBD = New System.Windows.Forms.FolderBrowserDialog()
         Me.OK = New System.Windows.Forms.Button()
         Me.CANCEL = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'GamePathTextBox
@@ -103,7 +104,7 @@ Partial Class Settingsvb
         'OK
         '
         Me.OK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.OK.Location = New System.Drawing.Point(12, 106)
+        Me.OK.Location = New System.Drawing.Point(12, 150)
         Me.OK.Name = "OK"
         Me.OK.Size = New System.Drawing.Size(171, 39)
         Me.OK.TabIndex = 6
@@ -114,12 +115,22 @@ Partial Class Settingsvb
         '
         Me.CANCEL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CANCEL.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.CANCEL.Location = New System.Drawing.Point(263, 106)
+        Me.CANCEL.Location = New System.Drawing.Point(263, 150)
         Me.CANCEL.Name = "CANCEL"
         Me.CANCEL.Size = New System.Drawing.Size(160, 39)
         Me.CANCEL.TabIndex = 7
         Me.CANCEL.Text = "Cancel"
         Me.CANCEL.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(15, 109)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(88, 17)
+        Me.CheckBox1.TabIndex = 9
+        Me.CheckBox1.Text = "Debug Mode"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Settingsvb
         '
@@ -127,7 +138,8 @@ Partial Class Settingsvb
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.CANCEL
-        Me.ClientSize = New System.Drawing.Size(435, 157)
+        Me.ClientSize = New System.Drawing.Size(435, 201)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.CANCEL)
         Me.Controls.Add(Me.OK)
         Me.Controls.Add(Me.Label2)
@@ -152,4 +164,5 @@ Partial Class Settingsvb
     Friend WithEvents OK As System.Windows.Forms.Button
     Friend WithEvents CANCEL As System.Windows.Forms.Button
     Friend WithEvents ModsPathButton As System.Windows.Forms.Button
+    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
 End Class

@@ -9,17 +9,10 @@
     End Sub
 
     Private Sub Settingsvb_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim GamePath As String
-        Dim ModsPath As String
 
-        GamePath = My.Settings.GamePath
-        ModsPath = My.Settings.UserFilesPath
-
-        Me.GamePathTextBox.Text = GamePath
-        Me.ModspathTextBox.Text = ModsPath
-
-        GamePath = Nothing
-        ModsPath = Nothing
+        GamePathTextBox.Text = My.Settings.GamePath
+        ModspathTextBox.Text = My.Settings.UserFilesPath
+        CheckBox1.Checked = My.Settings.DebugMode
 
     End Sub
 
@@ -48,5 +41,9 @@
             System.IO.Directory.CreateDirectory(path & "\mod\" & Manager) 'Dosent exist, let's create it
 
         End If
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        My.Settings.DebugMode = CheckBox1.Checked
     End Sub
 End Class
