@@ -76,7 +76,7 @@
             Dir,
             FileIO.SearchOption.SearchTopLevelOnly, "*.profile") 'Get all .profile files
 
-            
+
 
             Dim filetxt As String = My.Computer.FileSystem.ReadAllText(foundFile) 'Read the file
 
@@ -135,12 +135,13 @@
 
     End Sub
 
-    Private Sub ProfileWatcher_Renamed(sender As Object, e As IO.RenamedEventArgs) Handles ProfileWatcher.Renamed
+    Private Sub ProfileWatcherEvent(sender As Object, e As IO.RenamedEventArgs) Handles ProfileWatcher.Renamed, ProfileWatcher.Deleted, ProfileWatcher.Created, ProfileWatcher.Changed
         LoadProfiles()
-        My.Application.Log.WriteEntry("File Renamed")
     End Sub
 
-    
+    Private Sub ModsWatcherEvent(sender As Object, e As IO.FileSystemEventArgs) Handles ModsWatcher.Deleted, ModsWatcher.Created, ModsWatcher.Changed, ModsWatcher.Renamed
+        LoadMods()
+    End Sub
 End Class
 
 Public Class Globals

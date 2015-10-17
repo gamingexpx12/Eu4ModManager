@@ -153,8 +153,7 @@ Partial Class Form1
         '
         'NewProfile
         '
-        Me.NewProfile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NewProfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.NewProfile.Location = New System.Drawing.Point(7, 452)
         Me.NewProfile.Name = "NewProfile"
         Me.NewProfile.Size = New System.Drawing.Size(87, 36)
