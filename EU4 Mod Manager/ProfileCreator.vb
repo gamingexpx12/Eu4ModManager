@@ -8,7 +8,7 @@
         ModeChange(Mode)
 
         For Each FoundFile As String In My.Computer.FileSystem.GetFiles(
-            My.Settings.UserFilesPath & "/mod",
+            Form1.oglobals,
             Microsoft.VisualBasic.FileIO.SearchOption.SearchTopLevelOnly, "*.mod") 'Get all .mod files
 
             Dim filetxt As String = My.Computer.FileSystem.ReadAllText(FoundFile)
