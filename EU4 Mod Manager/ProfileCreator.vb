@@ -1,6 +1,7 @@
 ﻿Public Class ProfileCreator
 
-    Public Mode As String
+    Public Mode As String 'Create new profile or edit one
+    Public ProfileName As String = "Selected Profile Name" 'If editinng, which name should we use
     Private Sub ProfileCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim ModName As String
 
@@ -22,7 +23,7 @@
         Next
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ProfileTextBox.TextChanged
 
     End Sub
 
@@ -38,8 +39,11 @@
         Select Case Mode
             Case "Create"
                 Text = "Create New Profile"
+                ProfileTextBox.Text = "New Profile"
             Case "Edit"
                 Text = "Edit Existing Profile"
+                ProfileTextBox.Text = ProfileName
+
             Case Else
                 My.Application.Log.WriteEntry("Invalid Mode", TraceEventType.Error)
                 Me.Close()

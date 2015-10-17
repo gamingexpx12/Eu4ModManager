@@ -31,7 +31,7 @@ Partial Class Form1
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.EditProfie = New System.Windows.Forms.Button()
+        Me.EditProfileButton = New System.Windows.Forms.Button()
         Me.ProfileDelete = New System.Windows.Forms.Button()
         Me.NewProfile = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -117,7 +117,7 @@ Partial Class Form1
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.EditProfie)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.EditProfileButton)
         Me.SplitContainer1.Panel1.Controls.Add(Me.ProfileDelete)
         Me.SplitContainer1.Panel1.Controls.Add(Me.NewProfile)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
@@ -131,15 +131,15 @@ Partial Class Form1
         Me.SplitContainer1.SplitterDistance = 309
         Me.SplitContainer1.TabIndex = 0
         '
-        'EditProfie
+        'EditProfileButton
         '
-        Me.EditProfie.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.EditProfie.Location = New System.Drawing.Point(100, 452)
-        Me.EditProfie.Name = "EditProfie"
-        Me.EditProfie.Size = New System.Drawing.Size(96, 36)
-        Me.EditProfie.TabIndex = 4
-        Me.EditProfie.Text = "Edit"
-        Me.EditProfie.UseVisualStyleBackColor = True
+        Me.EditProfileButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.EditProfileButton.Location = New System.Drawing.Point(100, 452)
+        Me.EditProfileButton.Name = "EditProfileButton"
+        Me.EditProfileButton.Size = New System.Drawing.Size(96, 36)
+        Me.EditProfileButton.TabIndex = 4
+        Me.EditProfileButton.Text = "Edit"
+        Me.EditProfileButton.UseVisualStyleBackColor = True
         '
         'ProfileDelete
         '
@@ -285,7 +285,7 @@ Partial Class Form1
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents ProfileDelete As System.Windows.Forms.Button
     Friend WithEvents NewProfile As System.Windows.Forms.Button
-    Friend WithEvents EditProfie As System.Windows.Forms.Button
+    Friend WithEvents EditProfileButton As System.Windows.Forms.Button
     Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
     Friend WithEvents ModList As System.Windows.Forms.ListBox
     Friend WithEvents ProfileWatcher As System.IO.FileSystemWatcher

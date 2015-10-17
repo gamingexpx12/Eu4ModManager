@@ -1,6 +1,6 @@
 ﻿Public Class Form1
     Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt")
-    Dim Profiles() As String
+    Dim Profiles() As String 'Stores all the profiles in short form
     Dim oGlobals As New Globals()
 
 
@@ -76,15 +76,21 @@
             Dir,
             FileIO.SearchOption.SearchTopLevelOnly, "*.profile") 'Get all .profile files
 
-            Profiles(i) = foundFile
-            i = i + 1 'increment index
+            
+
             Dim filetxt As String = My.Computer.FileSystem.ReadAllText(foundFile) 'Read the file
-            foundFile = foundFile.Replace(Dir, "")
+
+            foundFile = foundFile.Replace(Dir, "") 'get rid of the extra stuff
+            foundFile = foundFile.Substring(1) 'remove the last slash
             If My.Settings.DebugMode Then
                 ProfileName = ParadoxRW.GetStringValue(filetxt, "name") & "   -   (" & foundFile & ")"
             Else
                 ProfileName = ParadoxRW.GetStringValue(filetxt, "name")
             End If
+
+
+            Profiles(i) = foundFile ' add profile to array
+            i = i + 1 'increment index
 
             ProfileList.Items.Add(ProfileName)
         Next
@@ -101,13 +107,28 @@
     Private Sub ProfileList_DragDrop(sender As Object, e As DragEventArgs) Handles ProfileList.DragDrop
 
     End Sub
-    Private Sub ProfileCreate(Mode As String)
+    Private Sub ProfileCreate(Mode As String, Optional Name As String = "Profile")
         ProfileCreator.Mode = Mode
+        ProfileCreator.ProfileName = Name
         ProfileCreator.ShowDialog()
     End Sub
 
-    Private Sub EditProfie_Click(sender As Object, e As EventArgs) Handles EditProfie.Click
-        ProfileCreate("Edit")
+    Private Sub EditProfie_Click(sender As Object, e As EventArgs) Handles EditProfileButton.Click
+        Try
+            ProfileList.SelectedItem.ToString()
+        Catch ex As NullReferenceException
+            My.Application.Log.WriteEntry("No Item selected/found")
+            MsgBox("Please Select an item first", , "Null Refererence Exception")
+            Return
+        Catch ex As Exception
+            MsgBox("Exception Encountered:" & Environment.NewLine & ex.Message, , "Error")
+            Return
+        End Try
+
+        Dim SelectedName = Profiles(ProfileList.SelectedIndex)
+        Dim SelectedTxt = My.Computer.FileSystem.ReadAllText(oGlobals.ProfileFolder & "\" & SelectedName)
+        SelectedName = ParadoxRW.GetStringValue(SelectedTxt, "name")
+        ProfileCreate("Edit", SelectedName)
     End Sub
 
     Private Sub LoadMods()
@@ -140,7 +161,9 @@ Public Class Globals
                 FileIO.FileSystem.DirectoryExists(ProfilesPath)
             Catch ex As Exception
                 My.Application.Log.WriteEntry(ex.ToString())
+                Exit Property
             End Try
+            
             ProfilesPath = value
             Form1.ProfileWatcher.Path = value
         End Set

@@ -24,7 +24,7 @@ Partial Class ProfileCreator
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.ProfileTextBox = New System.Windows.Forms.TextBox()
         Me.ModList = New System.Windows.Forms.CheckedListBox()
         Me.OkButton = New System.Windows.Forms.Button()
         Me.CancelProfileButton = New System.Windows.Forms.Button()
@@ -37,7 +37,7 @@ Partial Class ProfileCreator
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.ProfileTextBox)
         Me.Panel1.Controls.Add(Me.ModList)
         Me.Panel1.Location = New System.Drawing.Point(13, 12)
         Me.Panel1.Name = "Panel1"
@@ -53,13 +53,13 @@ Partial Class ProfileCreator
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Mods"
         '
-        'TextBox1
+        'ProfileTextBox
         '
-        Me.TextBox1.Location = New System.Drawing.Point(3, 3)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(301, 20)
-        Me.TextBox1.TabIndex = 2
-        Me.TextBox1.Text = "Profile Name"
+        Me.ProfileTextBox.Location = New System.Drawing.Point(3, 3)
+        Me.ProfileTextBox.Name = "ProfileTextBox"
+        Me.ProfileTextBox.Size = New System.Drawing.Size(301, 20)
+        Me.ProfileTextBox.TabIndex = 2
+        Me.ProfileTextBox.Text = "Profile Name"
         '
         'ModList
         '
@@ -111,7 +111,7 @@ Partial Class ProfileCreator
     End Sub
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents ModList As System.Windows.Forms.CheckedListBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents ProfileTextBox As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents OkButton As System.Windows.Forms.Button
     Friend WithEvents CancelProfileButton As System.Windows.Forms.Button
