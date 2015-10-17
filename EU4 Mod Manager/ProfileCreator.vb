@@ -1,4 +1,6 @@
-﻿Public Class ProfileCreator
+﻿Imports System.IO
+
+Public Class ProfileCreator
 
     Public Mode As String 'Create new profile or edit one
     Public ProfileName As String = "Selected Profile Name" 'If editinng, which name should we use
@@ -32,7 +34,17 @@
     End Sub
 
     Private Sub OkButton_Click(sender As Object, e As EventArgs) Handles OkButton.Click
+        'Dim ToTrim() As Char = {Chr(34), Chr(1)}
+        'ProfileName = ProfileTextBox.Text.Trim(ToTrim())
 
+        ProfileName = ProfileTextBox.Text.Replace(" ", "") 'No whitespace in filename, for max compatibility
+        Dim ProfileFile = File.CreateText(Form1.oGlobals.ProfileFolder & "\" & ProfileName & ".profile") 'Create a textfile with the desited name
+        ProfileName = ProfileTextBox.Text 'Get the actual name again
+
+        '***Temporary until SetStringValue is ready***
+        ProfileFile.WriteLine("name=" & ParadoxRW.Stringify(ProfileName)) ' Write the readable name in a PRW string format
+        ProfileFile.Close() 'Close the file?
+        Me.Close()
     End Sub
 
     Private Sub ModeChange(Mode As String)
