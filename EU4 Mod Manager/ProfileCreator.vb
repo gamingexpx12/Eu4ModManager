@@ -8,12 +8,12 @@
         ModeChange(Mode)
 
         For Each FoundFile As String In My.Computer.FileSystem.GetFiles(
-            My.Settings.UserFilesPath & "/mod",
+            Form1.oGlobals.ModsFolder,
             Microsoft.VisualBasic.FileIO.SearchOption.SearchTopLevelOnly, "*.mod") 'Get all .mod files
 
             Dim filetxt As String = My.Computer.FileSystem.ReadAllText(FoundFile)
             ModName = ParadoxRW.GetStringValue(filetxt, "name")
-            FoundFile = FoundFile.Replace(My.Settings.UserFilesPath, "")
+            FoundFile = FoundFile.Replace(Form1.oGlobals.ModsFolder & "\", "")
             If My.Settings.DebugMode Then 'Debug Info
                 ModList.Items.Add(ModName & "   -   (" & FoundFile & ")")
             Else
