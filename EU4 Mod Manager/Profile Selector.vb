@@ -1,7 +1,8 @@
 ﻿Public Class Form1
     Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt")
     Dim Profiles() As String 'Stores all the profiles in short form
-    Public oGlobals As New Globals()
+    Dim Mods() As String 'Store all the mods in short form
+    Public Shared oGlobals As New Globals()
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -63,14 +64,43 @@
         ProfileCreate("Create")
     End Sub
 
+    Public Shared Sub LoadMods()
+        Dim ModName As String
+        Dim i As Integer = 0
+        Dim Dir As String = oGlobals.ModsFolder
+        ProfileCreator.ModList.Items.Clear()
+        Erase Form1.Mods
+
+        For Each foundFile As String In My.Computer.FileSystem.GetFiles(
+            Dir,
+            FileIO.SearchOption.SearchTopLevelOnly, "*.mod") 'Get all .mod files
+
+
+
+            Dim filetxt As String = My.Computer.FileSystem.ReadAllText(foundFile) 'Read the file
+
+            foundFile = foundFile.Replace(Dir, "") 'get rid of the extra stuff
+            foundFile = foundFile.Substring(1) 'remove the last slash
+            If My.Settings.DebugMode Then
+                ModName = ParadoxRW.GetStringValue(filetxt, "name") & "   -   (" & foundFile & ")"
+            Else
+                ModName = ParadoxRW.GetStringValue(filetxt, "name")
+            End If
+
+            Array.Resize(Form1.Mods, i + 1) 'Update the arrays size
+            Form1.Mods(i) = foundFile ' add profile to array
+            i = i + 1 'increment index
+
+            ProfileCreator.ModList.Items.Add(ModName)
+        Next
+    End Sub
+
     Public Sub LoadProfiles()
         Dim ProfileName As String
         Dim i As Integer = 0
         Dim Dir As String = oGlobals.ProfileFolder
         ProfileList.Items.Clear()
         Erase Profiles
-        Dim Filecount As String = My.Computer.FileSystem.GetFiles(Dir, FileIO.SearchOption.SearchTopLevelOnly, "*.profile").Count
-        My.Application.Log.WriteEntry("Found " & Filecount & " Files.")
 
         For Each foundFile As String In My.Computer.FileSystem.GetFiles(
             Dir,
@@ -129,10 +159,6 @@
         Dim SelectedTxt = My.Computer.FileSystem.ReadAllText(oGlobals.ProfileFolder & "\" & SelectedName)
         SelectedName = ParadoxRW.GetStringValue(SelectedTxt, "name")
         ProfileCreate("Edit", SelectedName)
-    End Sub
-
-    Private Sub LoadMods()
-
     End Sub
 
     Private Sub ProfileWatcherEvent(sender As Object, e As IO.RenamedEventArgs) Handles ProfileWatcher.Renamed, ProfileWatcher.Deleted, ProfileWatcher.Created, ProfileWatcher.Changed

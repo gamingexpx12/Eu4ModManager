@@ -1,28 +1,31 @@
 ﻿Imports System.IO
+Imports EU4_Mod_Manager.ParadoxRW
+Imports EU4_Mod_Manager.Form1
 
 Public Class ProfileCreator
 
     Public Mode As String 'Create new profile or edit one
     Public ProfileName As String = "Selected Profile Name" 'If editinng, which name should we use
     Private Sub ProfileCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim ModName As String
+        'Dim ModName As String
 
         ModeChange(Mode)
+        LoadMods()
 
-        For Each FoundFile As String In My.Computer.FileSystem.GetFiles(
-            Form1.oGlobals.ModsFolder,
-            Microsoft.VisualBasic.FileIO.SearchOption.SearchTopLevelOnly, "*.mod") 'Get all .mod files
+        'For Each FoundFile As String In My.Computer.FileSystem.GetFiles(
+        '    oGlobals.ModsFolder,
+        '    Microsoft.VisualBasic.FileIO.SearchOption.SearchTopLevelOnly, "*.mod") 'Get all .mod files
 
-            Dim filetxt As String = My.Computer.FileSystem.ReadAllText(FoundFile)
-            ModName = ParadoxRW.GetStringValue(filetxt, "name")
-            FoundFile = FoundFile.Replace(Form1.oGlobals.ModsFolder & "\", "")
-            If My.Settings.DebugMode Then 'Debug Info
-                ModList.Items.Add(ModName & "   -   (" & FoundFile & ")")
-            Else
-                ModList.Items.Add(ModName)
-            End If
+        '    Dim filetxt As String = My.Computer.FileSystem.ReadAllText(FoundFile)
+        '    ModName = GetStringValue(filetxt, "name")
+        '    FoundFile = FoundFile.Replace(Form1.oGlobals.ModsFolder & "\", "")
+        '    If My.Settings.DebugMode Then 'Debug Info
+        '        ModList.Items.Add(ModName & "   -   (" & FoundFile & ")")
+        '    Else
+        '        ModList.Items.Add(ModName)
+        '    End If
 
-        Next
+        'Next
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ProfileTextBox.TextChanged
