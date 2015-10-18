@@ -57,6 +57,14 @@
     End Sub
 
     Private Sub ProfileDelete_Click(sender As Object, e As EventArgs) Handles ProfileDelete.Click
+        For Each Item As Integer In ProfileList.SelectedIndices
+            Dim file As String = oGlobals.ProfileFolder & "\" & Profiles(Item)
+            If My.Computer.FileSystem.FileExists(file) Then
+
+            End If
+
+            My.Computer.FileSystem.DeleteFile(file)
+        Next
 
     End Sub
 
@@ -162,10 +170,12 @@
     End Sub
 
     Private Sub ProfileWatcherEvent(sender As Object, e As IO.RenamedEventArgs) Handles ProfileWatcher.Renamed, ProfileWatcher.Deleted, ProfileWatcher.Created, ProfileWatcher.Changed
+        My.Application.Log.WriteEntry(e.Name & " Was " & e.ChangeType.ToString(), TraceEventType.Information)
         LoadProfiles()
     End Sub
 
     Private Sub ModsWatcherEvent(sender As Object, e As IO.FileSystemEventArgs) Handles ModsWatcher.Deleted, ModsWatcher.Created, ModsWatcher.Changed, ModsWatcher.Renamed
+        My.Application.Log.WriteEntry(e.Name & " Was " & e.ChangeType.ToString(), TraceEventType.Information)
         LoadMods()
     End Sub
 End Class
