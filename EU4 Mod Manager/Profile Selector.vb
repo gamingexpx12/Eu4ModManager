@@ -103,6 +103,9 @@
         Next
     End Sub
 
+    ''' <summary>
+    ''' Reloads the profile variable and the form elements.
+    ''' </summary>
     Public Sub LoadProfiles()
         Dim ProfileName As String
         Dim i As Integer = 0
@@ -110,14 +113,9 @@
         ProfileList.Items.Clear()
         Erase Profiles
 
-        For Each foundFile As String In My.Computer.FileSystem.GetFiles(
-            Dir,
-            FileIO.SearchOption.SearchTopLevelOnly, "*.profile") 'Get all .profile files
+        For Each foundFile As String In My.Computer.FileSystem.GetFiles(Dir, 2, "*.profile") 'Get all .profile files
 
-
-
-            Dim filetxt As String = My.Computer.FileSystem.ReadAllText(foundFile) 'Read the file
-
+            Dim filetxt = System.IO.File.ReadAllText(foundFile) 'Get all text
             foundFile = foundFile.Replace(Dir, "") 'get rid of the extra stuff
             foundFile = foundFile.Substring(1) 'remove the last slash
             If My.Settings.DebugMode Then
@@ -131,6 +129,8 @@
             i = i + 1 'increment index
 
             ProfileList.Items.Add(ProfileName)
+
+
         Next
     End Sub
 
