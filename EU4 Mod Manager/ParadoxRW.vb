@@ -81,4 +81,14 @@
     Public Function Stringify(Text As String)
         Return Chr(34) & Text & Chr(34)
     End Function
+    Public Function GetPValue(filepath As String, Key As String) As String
+        Return System.IO.File.ReadAllText(Nothing)
+    End Function
 End Module
+Class ModObj
+    Public Name As String
+    Public ShortPath As String
+    Public Overrides Function ToString() As String
+        Return MyBase.ToString()
+    End Function
+End Class
