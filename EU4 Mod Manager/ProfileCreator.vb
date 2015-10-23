@@ -10,7 +10,7 @@ Public Class ProfileCreator
         'Dim ModName As String
 
         ModeChange(Mode)
-        LoadMods()
+        Form1.LoadMods()
 
         'For Each FoundFile As String In My.Computer.FileSystem.GetFiles(
         '    oGlobals.ModsFolder,

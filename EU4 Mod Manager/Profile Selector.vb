@@ -1,18 +1,19 @@
 ﻿Public Class Form1
-    Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt")
+    Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt") 'Depreciated, may halt execution if file not found or incorrect
+    Dim Setting As New SettingsObj("settings.txt")
+    Dim ProfileObjs As ProfileObj()
     Dim Profiles() As String 'Stores all the profiles in short form
     Dim Mods() As String 'Store all the mods in short form
     Public Shared oGlobals As New Globals()
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        'Setting.
         If My.Settings.FirstTime Then
             MsgBox("Please select game executable and mod folder.", MsgBoxStyle.OkOnly, "First time setup")
             Settingsvb.ShowDialog()
         End If
-
-        oGlobals.ModsFolder = My.Settings.UserFilesPath & "\mod"
+        oGlobals.ModsFolder = My.Settings.UserFilesPath & "\mod" 'Set Globals
         oGlobals.ProfileFolder = My.Settings.UserFilesPath & "\mod\EU4ModManager"
 
         My.Application.Log.WriteEntry(ProfileWatcher.Path)
@@ -71,8 +72,10 @@
     Private Sub NewProfile_Click(sender As Object, e As EventArgs) Handles NewProfile.Click
         ProfileCreate("Create")
     End Sub
-
-    Public Shared Sub LoadMods()
+    Public Sub LoadMods()
+        ReloadMods()
+    End Sub
+    Public Shared Sub ReloadMods()
         Dim ModName As String
         Dim i As Integer = 0
         Dim Dir As String = oGlobals.ModsFolder
@@ -102,11 +105,13 @@
             ProfileCreator.ModList.Items.Add(ModName)
         Next
     End Sub
-
+    Public Sub LoadProfiles()
+        ReloadProfiles()
+    End Sub
     ''' <summary>
     ''' Reloads the profile variable and the form elements.
     ''' </summary>
-    Public Sub LoadProfiles()
+    Public Sub ReloadProfiles()
         Dim ProfileName As String
         Dim i As Integer = 0
         Dim Dir As String = oGlobals.ProfileFolder
@@ -126,11 +131,18 @@
 
             Array.Resize(Profiles, i + 1) 'Update the arrays size
             Profiles(i) = foundFile ' add profile to array
+
+            If My.Settings.DebugMode Then
+                'ProfileName = My.Computer.FileSystem.GetName(foundFile)
+                Array.Resize(ProfileObjs, i + 1) 'Update the arrays size
+                ProfileObjs(i) = New ProfileObj(foundFile)
+                ProfileList.DataSource = ProfileObjs
+            Else
+                ProfileList.Items.Add(ProfileName)
+            End If
+
+
             i = i + 1 'increment index
-
-            ProfileList.Items.Add(ProfileName)
-
-
         Next
     End Sub
 
@@ -177,6 +189,11 @@
     Private Sub ModsWatcherEvent(sender As Object, e As IO.FileSystemEventArgs) Handles ModsWatcher.Deleted, ModsWatcher.Created, ModsWatcher.Changed, ModsWatcher.Renamed
         My.Application.Log.WriteEntry(e.Name & " Was " & e.ChangeType.ToString(), TraceEventType.Information)
         LoadMods()
+    End Sub
+
+    Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click
+        ReloadProfiles()
+        ReloadMods()
     End Sub
 End Class
 

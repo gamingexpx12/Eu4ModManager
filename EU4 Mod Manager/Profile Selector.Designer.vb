@@ -42,6 +42,7 @@ Partial Class Form1
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ProfileWatcher = New System.IO.FileSystemWatcher()
         Me.ModsWatcher = New System.IO.FileSystemWatcher()
+        Me.ReloadButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,7 +59,7 @@ Partial Class Form1
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripDropDownButton1, Me.ToolStripSeparator1, Me.ToolStripButton1})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripDropDownButton1, Me.ToolStripSeparator1, Me.ToolStripButton1, Me.ReloadButton})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -241,6 +242,15 @@ Partial Class Form1
         Me.ModsWatcher.EnableRaisingEvents = True
         Me.ModsWatcher.SynchronizingObject = Me
         '
+        'ReloadButton
+        '
+        Me.ReloadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ReloadButton.Image = CType(resources.GetObject("ReloadButton.Image"), System.Drawing.Image)
+        Me.ReloadButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ReloadButton.Name = "ReloadButton"
+        Me.ReloadButton.Size = New System.Drawing.Size(74, 22)
+        Me.ReloadButton.Text = "Reload Data"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -289,5 +299,6 @@ Partial Class Form1
     Friend WithEvents ModList As System.Windows.Forms.ListBox
     Friend WithEvents ProfileWatcher As System.IO.FileSystemWatcher
     Friend WithEvents ModsWatcher As System.IO.FileSystemWatcher
+    Friend WithEvents ReloadButton As System.Windows.Forms.ToolStripButton
 
 End Class
