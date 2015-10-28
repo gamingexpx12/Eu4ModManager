@@ -51,11 +51,16 @@ Public Class Settingsvb
 
             Case Mode.FirstTime
                 GamePathTextBox.Text = Nothing
+                GameExeButton.Enabled = False
                 ModspathTextBox.Text = Nothing
+                ModsPathButton.Enabled = True
                 GameExeButton.Focus()
             Case Else
                 GamePathTextBox.Text = GameFolderPath
+                GameExeButton.Enabled = True
+                ModsPathButton.Enabled = True
                 ModspathTextBox.Text = ModFolderPath
+
         End Select
 
         
