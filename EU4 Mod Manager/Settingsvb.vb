@@ -1,6 +1,15 @@
-﻿Public Class Settingsvb
+﻿Imports EU4_Mod_Manager.GlobalModule
+Public Class Settingsvb
+    Public StartupMode As Mode = Mode.GamePath 'How to load
+    Public Enum Mode As Integer 'Ways to load
+        GamePath
+        ModsPath
+        FirstTime
+        Normal
+    End Enum
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles CANCEL.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
 
@@ -9,9 +18,47 @@
     End Sub
 
     Private Sub Settingsvb_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Select Case StartupMode
+            Case Mode.GamePath 'If gamepath is incorrect
+                With ModspathTextBox
+                    .ReadOnly = True
+                    .Text = "Mod Folder Path"
+                    ModsPathButton.Enabled = False
 
-        GamePathTextBox.Text = My.Settings.GamePath
-        ModspathTextBox.Text = My.Settings.UserFilesPath
+
+                End With
+                With GamePathTextBox
+                    .ReadOnly = False
+                    .Text = Nothing
+                    .Focus()
+                    GameExeButton.Enabled = True
+                End With
+
+            Case Mode.ModsPath
+                With ModspathTextBox
+                    .ReadOnly = False
+                    .Text = Nothing
+                    .Focus()
+                    ModsPathButton.Enabled = True
+                End With
+
+                With GamePathTextBox
+                    .ReadOnly = True
+                    .Text = "Game Path"
+                    GameExeButton.Enabled = False
+                End With
+                
+
+            Case Mode.FirstTime
+                GamePathTextBox.Text = Nothing
+                ModspathTextBox.Text = Nothing
+                GameExeButton.Focus()
+            Case Else
+                GamePathTextBox.Text = GameFolderPath
+                ModspathTextBox.Text = ModFolderPath
+        End Select
+
+        
         CheckBox1.Checked = My.Settings.DebugMode
 
     End Sub
@@ -20,6 +67,7 @@
         My.Settings.GamePath = Me.GamePathTextBox.Text
         My.Settings.UserFilesPath = Me.ModspathTextBox.Text
         SetupFolder(My.Settings.UserFilesPath)
+        Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
 
 

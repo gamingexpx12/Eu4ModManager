@@ -1,17 +1,25 @@
-﻿Public Class Form1
-    Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(My.Settings.UserFilesPath & "\settings.txt") 'Depreciated, may halt execution if file not found or incorrect
+﻿Imports EU4_Mod_Manager.GlobalModule
+Public Class Form1
+    <Obsolete("may halt execution if file not found or incorrect", False)>
+    Dim Settingstxt As String = My.Computer.FileSystem.ReadAllText(SettingsFilePath)
     Dim Setting As New SettingsObj("settings.txt")
     Dim ProfileObjs As ProfileObj()
+    <Obsolete>
     Dim Profiles() As String 'Stores all the profiles in short form
+    <Obsolete>
     Dim Mods() As String 'Store all the mods in short form
-    Public Shared oGlobals As New Globals()
+    <Obsolete>
+    Public Shared oGlobals As New Globals() 'Depreciated
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Setting.
         If My.Settings.FirstTime Then
             MsgBox("Please select game executable and mod folder.", MsgBoxStyle.OkOnly, "First time setup")
-            Settingsvb.ShowDialog()
+            If Settingsvb.ShowDialog() = Windows.Forms.DialogResult.Cancel Then
+
+            Else
+            End If
         End If
         oGlobals.ModsFolder = My.Settings.UserFilesPath & "\mod" 'Set Globals
         oGlobals.ProfileFolder = My.Settings.UserFilesPath & "\mod\EU4ModManager"
@@ -27,7 +35,6 @@
             CurrentMod = CurrentMod.Replace(Chr(9), "")
             ModList.Items.Add(CurrentMod)
         Next
-
 
     End Sub
 
@@ -106,6 +113,7 @@
         Next
     End Sub
     Public Sub LoadProfiles()
+        ProfileList.DataSource = ProfileObjs
         ReloadProfiles()
     End Sub
     ''' <summary>
@@ -114,11 +122,13 @@
     Public Sub ReloadProfiles()
         Dim ProfileName As String
         Dim i As Integer = 0
-        Dim Dir As String = oGlobals.ProfileFolder
+        Dim Dir As String = My.Settings.UserFilesPath
         ProfileList.Items.Clear()
         Erase Profiles
+        Erase ProfileObjs
 
         For Each foundFile As String In My.Computer.FileSystem.GetFiles(Dir, 2, "*.profile") 'Get all .profile files
+
 
             Dim filetxt = System.IO.File.ReadAllText(foundFile) 'Get all text
             foundFile = foundFile.Replace(Dir, "") 'get rid of the extra stuff
@@ -136,7 +146,7 @@
                 'ProfileName = My.Computer.FileSystem.GetName(foundFile)
                 Array.Resize(ProfileObjs, i + 1) 'Update the arrays size
                 ProfileObjs(i) = New ProfileObj(foundFile)
-                ProfileList.DataSource = ProfileObjs
+
             Else
                 ProfileList.Items.Add(ProfileName)
             End If
@@ -155,7 +165,7 @@
     End Sub
 
     Private Sub ProfileList_DragDrop(sender As Object, e As DragEventArgs) Handles ProfileList.DragDrop
-
+        'If e.AllowedEffect = DragDropEffects.Move Then 
     End Sub
     Private Sub ProfileCreate(Mode As String, Optional Name As String = "Profile")
         ProfileCreator.Mode = Mode

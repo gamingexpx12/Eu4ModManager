@@ -91,6 +91,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalModule.vb" />
     <Compile Include="ParadoxRW.vb" />
     <Compile Include="Profile Selector.vb">
       <SubType>Form</SubType>

@@ -48,6 +48,8 @@ Partial Class Settingsvb
         '
         Me.ModspathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ModspathTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ModspathTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem
         Me.ModspathTextBox.Location = New System.Drawing.Point(77, 60)
         Me.ModspathTextBox.Name = "ModspathTextBox"
         Me.ModspathTextBox.Size = New System.Drawing.Size(265, 20)
