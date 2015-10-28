@@ -57,6 +57,7 @@ Module GlobalModule
         End Get
         Set(value)
             My.Settings.FirstTime = value
+
         End Set
     End Property
 End Module
