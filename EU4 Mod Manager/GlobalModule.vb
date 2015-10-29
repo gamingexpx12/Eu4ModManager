@@ -60,4 +60,13 @@ Module GlobalModule
 
         End Set
     End Property
+
+    Property DebugMode
+        Get
+            Return My.Settings.DebugMode
+        End Get
+        Set(value)
+            My.Settings.DebugMode = value
+        End Set
+    End Property
 End Module
